@@ -5,6 +5,7 @@ from PIL import ImageTk, Image
 import requests as rq
 from io import BytesIO
 import os
+import re
 
 window = tk.Tk(className=" Youtube downloader")
 window.geometry("400x400")
@@ -49,7 +50,8 @@ def downloadVideo(link, choice, path=SAVE_PATH):
 		stream = yt.streams.filter(only_audio=True).first()
 	else:
 		stream = yt.streams.filter(progressive=True, file_extension='mp4').first()
-	stream.download(path, filename=yt.title+"."+choice)
+	subtitle = re.sub('[/\:*?"<>|]',  '',  yt.title) #removing not allowed characters
+	stream.download(path, filename=subtitle+"."+choice)
 	title = yt.title
 	return title
 
@@ -79,7 +81,8 @@ def getEntry():
 		try:
 			title = downloadVideo(link, choice)
 			tk.messagebox.showinfo("showinfo", "Successfully downloaded")
-		except:
+		except Exception as e:
+			print(e)
 			tk.messagebox.showerror("showerror", "Error")
 	
 	return
