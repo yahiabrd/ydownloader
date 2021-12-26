@@ -3,6 +3,7 @@ Simple Youtube downloader app that allows you to download either mp3 or mp4 file
 
 Features of the app :
 - MP3 and MP4 download option
+- Detection and downloading of a whole playlist
 - Thumbnail preview of the video
 - Video name preview
 
